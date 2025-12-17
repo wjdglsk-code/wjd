@@ -5,89 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>2026 학습운 테스트</title>
   <meta name="description" content="고1~고3 대상 2026 학습운 테스트" />
-  <link rel="stylesheet" href="./style.css" />
+  <style>
+    :root{
+      --bg:#f5f6fb; --card:#fff; --text:#14161f; --muted:#5b6072; --line:#e8eaf3;
+      --accent:#5b5cff; --accent2:#22c55e; --shadow:0 12px 30px rgba(16,24,40,.08); --r:18px;
+      --font: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo","Noto Sans KR","Segoe UI", Roboto, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--font); color:var(--text);
+      background: radial-gradient(900px 500px at 15% 0%, rgba(91,92,255,.15), transparent 60%),
+                  radial-gradient(900px 500px at 85% 10%, rgba(34,197,94,.12), transparent 55%),
+                  var(--bg);
+    }
+    .app{width:min(420px, 92vw); margin:18px auto 40px}
+    .card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); padding:16px}
+    .hidden{display:none}
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(91,92,255,.10); color:var(--accent); font-weight:800; font-size:12px}
+    .h1{margin:10px 0 6px; font-size:22px; letter-spacing:-.2px}
+    .h2{margin:0; font-size:18px; letter-spacing:-.2px}
+    .sub{margin:0; color:var(--muted); line-height:1.45; font-size:13px}
+    .cover{margin:12px 0 14px; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#fafafe}
+    .cover img{width:100%; height:160px; object-fit:cover; display:block}
+    .field span{display:block; font-size:12px; color:var(--muted); margin:0 0 6px}
+    .field input{width:100%; border:1px solid var(--line); border-radius:14px; padding:12px; font-size:14px; outline:none}
+    .field input:focus{border-color:rgba(91,92,255,.55)}
+    .btn{width:100%; padding:12px; margin-top:12px; border-radius:14px; border:1px solid var(--line); background:#fff; font-weight:900; cursor:pointer}
+    .btn.primary{border-color:transparent; background:linear-gradient(135deg, var(--accent), #3b82f6); color:#fff}
+    .btn.ghost{width:auto; margin:0; padding:10px 12px; background:transparent}
+    .fine{margin:12px 0 0; font-size:12px; color:var(--muted)}
+    .topline{display:flex; align-items:center; justify-content:space-between; gap:8px}
+    .progressWrap{flex:1}
+    .progressText{text-align:center; font-size:12px; color:var(--muted); margin-bottom:6px}
+    .progress{height:10px; border-radius:999px; background:#f0f2fb; border:1px solid var(--line); overflow:hidden}
+    .bar{height:100%; width:0%; background:linear-gradient(90deg, var(--accent), var(--accent2))}
+    .qbox{margin:14px 0 8px}
+    .qnum{font-size:12px; color:var(--muted); font-weight:800; margin-bottom:6px}
+    .choices{display:grid; gap:10px; margin-top:12px}
+    .choice{text-align:left; border:1px solid var(--line); border-radius:14px; padding:12px; background:#fff; cursor:pointer; transition:transform .05s ease}
+    .choice:active{transform:scale(.99)}
+    .choice strong{display:block; font-size:14px}
+    .choice span{display:block; font-size:12px; color:var(--muted); margin-top:4px}
+    .choice.selected{border-color:rgba(91,92,255,.7); box-shadow:0 0 0 3px rgba(91,92,255,.12)}
+    .hint{margin-top:12px; font-size:12px; color:var(--muted); text-align:center}
+    .resultMedia{margin:10px 0 12px; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#fafafe}
+    .resultMedia img{width:100%; height:160px; object-fit:cover; display:block}
+    .statGrid{display:grid; gap:10px; margin:10px 0 12px}
+    .stat{display:grid; grid-template-columns:56px 1fr; gap:10px; align-items:center}
+    .stat span{font-size:12px; color:var(--muted); font-weight:800}
+    .meter{height:10px; border-radius:999px; background:#f0f2fb; border:1px solid var(--line); overflow:hidden}
+    .meter>div{height:100%; width:40%; background:linear-gradient(90deg, var(--accent), var(--accent2))}
+    .box{border:1px solid var(--line); border-radius:14px; padding:12px; background:#fafafe}
+    .boxTitle{font-weight:1000; margin-bottom:6px}
+    .boxText{color:var(--muted); line-height:1.5; font-size:13px}
+    .actions{display:grid; gap:10px; margin-top:12px}
+    .actions .btn{margin-top:0}
+  </style>
 </head>
 <body>
-  <main class="app" role="main">
-    <!-- START -->
+  <main class="app">
     <section class="card" id="start">
-      <div class="header">
-        <div class="pill">교육 동아리 부스</div>
-        <h1 class="h1">2026 한 해 학습운 테스트</h1>
-        <p class="sub">고1~고3 기준. 10문항. 결과는 4가지 타입으로 정리해줌.</p>
-      </div>
-
-      <div class="cover">
-        <img src="./assets/cover.jpg" alt="표지 이미지" onerror="this.style.display='none'">
-      </div>
-
-      <label class="field">
-        <span>닉네임(결과 카드에 표시)</span>
-        <input id="name" maxlength="12" placeholder="예: 정하나" />
-      </label>
-
-      <button class="btn primary" id="startBtn">테스트 시작하기</button>
-
-      <p class="fine">※ 재미용. 결과로 인생 결정 금지(인간들은 또 하겠지만).</p>
-    </section>
-
-    <!-- QUIZ -->
-    <section class="card hidden" id="quiz" aria-live="polite">
-      <div class="topline">
-        <button class="btn ghost" id="backBtn" type="button">←</button>
-
-        <div class="progressWrap" aria-label="진행도">
-          <div class="progressText" id="progressText">1 / 10</div>
-          <div class="progress">
-            <div class="bar" id="bar"></div>
-          </div>
-        </div>
-
-        <button class="btn ghost" id="restartBtn" type="button">처음</button>
-      </div>
-
-      <div class="qbox">
-        <div class="qnum" id="qnum">Q1</div>
-        <h2 class="h2" id="question">질문</h2>
-      </div>
-
-      <div class="choices" id="choices"></div>
-
-      <div class="hint">답을 누르면 자동으로 다음 문항으로 넘어감.</div>
-    </section>
-
-    <!-- RESULT -->
-    <section class="card hidden" id="result">
-      <div class="header">
-        <div class="pill" id="resultPill">결과</div>
-        <h2 class="h1" id="resultTitle">타입</h2>
-        <p class="sub" id="resultDesc"></p>
-      </div>
-
-      <div class="resultMedia">
-        <img id="resultImg" alt="결과 이미지" />
-      </div>
-
-      <div class="statGrid">
-        <div class="stat"><span>집중</span><div class="meter"><div id="mFocus"></div></div></div>
-        <div class="stat"><span>계획</span><div class="meter"><div id="mPlan"></div></div></div>
-        <div class="stat"><span>멘탈</span><div class="meter"><div id="mMind"></div></div></div>
-        <div class="stat"><span>컨디션</span><div class="meter"><div id="mBody"></div></div></div>
-      </div>
-
-      <div class="box">
-        <div class="boxTitle">2026 운영법</div>
-        <div class="boxText" id="tip"></div>
-      </div>
-
-      <div class="actions">
-        <button class="btn primary" id="againBtn">다시 하기</button>
-        <button class="btn" id="copyBtn">결과 복사</button>
-        <button class="btn" id="printBtn">인쇄/저장</button>
-      </div>
-    </section>
-  </main>
-
-  <script src="./script.js"></script>
-</body>
-</html>
+      <div class="pill">교육 동아리 부스</div>
+      <h1 class="h1">2026 한 해 학습운 테스트</h1>
+      <p class="sub">고1~고3 기준. 10문항. “매우 그렇다~전혀 아니다”로 빠르게.</p>
