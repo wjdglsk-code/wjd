@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2026 학습운 테스트</title>
+  <meta name="description" content="고1~고3 대상 2026 학습운 테스트" />
+  <link rel="stylesheet" href="./style.css" />
+  <!-- DOM 로드 끝나고 실행되게 defer -->
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <!-- START -->
+    <section class="card" id="start">
+      <div class="pill">교육 동아리 부스</div>
+      <h1 class="h1">2026 한 해 학습운 테스트</h1>
+      <p class="sub">고1~고3 기준 · 10문항 · 5점 척도(매우 그렇다~전혀 아니다)</p>
+
+      <div class="cover">
+        <img src="./assets/cover.jpg" alt="표지 이미지" onerror="this.style.display='none'">
+      </div>
+
+      <label class="field">
+        <span>닉네임(결과 카드 표시)</span>
+        <input id="name" maxlength="12" placeholder="예: 정하나" />
+      </label>
+
+      <button class="btn primary" id="startBtn" type="button">테스트 시작하기</button>
+      <p class="fine">※ 재미용. 결과로 인생 결정 금지. (사람들이 제일 못 지킴)</p>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="card hidden" id="quiz" aria-live="polite">
+      <div class="topline">
+        <button class="btn ghost" id="backBtn" type="button">←</button>
+
+        <div class="progressWrap" aria-label="진행도">
+          <div class="progressText" id="progressText">1 / 10</div>
+          <div class="progress"><div class="bar" id="bar"></div></div>
+        </div>
+
+        <button class="btn ghost" id="restartBtn" type="button">처음</button>
+      </div>
+
+      <div class="qbox">
+        <div class="qnum" id="qnum">Q1</div>
+        <h2 class="h2" id="question">질문</h2>
+      </div>
+
+      <div class="choices" id="choices"></div>
+      <div class="hint">답을 누르면 자동으로 다음 문항으로 넘어감.</div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="card hidden" id="result">
+      <div class="pill">결과</div>
+      <h2 class="h1" id="resultTitle">타입</h2>
+      <p class="sub" id="resultDesc"></p>
+
+      <div class="resultMedia">
+        <img id="resultImg" alt="결과 이미지" />
+      </div>
+
+      <div class="statGrid">
+        <div class="stat"><span>집중</span><div class="meter"><div id="mFocus"></div></div></div>
+        <div class="stat"><span>계획</span><div class="meter"><div id="mPlan"></div></div></div>
+        <div class="stat"><span>멘탈</span><div class="meter"><div id="mMind"></div></div></div>
+        <div class="stat"><span>컨디션</span><div class="meter"><div id="mBody"></div></div></div>
+      </div>
+
+      <div class="box">
+        <div class="boxTitle">2026 운영법</div>
+        <div class="boxText" id="tip"></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="againBtn" type="button">다시 하기</button>
+        <button class="btn" id="copyBtn" type="button">결과 복사</button>
+        <button class="btn" id="printBtn" type="button">인쇄/저장</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
