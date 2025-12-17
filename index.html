@@ -3,178 +3,90 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>2026 한 해 학습운 테스트</title>
-  <meta name="description" content="교육 동아리 부스용 2026 한 해 학습운 테스트" />
+  <title>2026 학습운 테스트</title>
+  <meta name="description" content="고1~고3 대상 2026 학습운 테스트" />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div class="bg"></div>
-
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo" aria-hidden="true">📚</div>
-      <div>
-        <div class="brandTitle">2026 한 해 학습운</div>
-        <div class="brandSub">교육 동아리 부스 테스트</div>
-      </div>
-    </div>
-    <a class="ghostLink" href="#" id="btnHow">사용법</a>
-  </header>
-
-  <main class="wrap">
+  <main class="app" role="main">
     <!-- START -->
-    <section class="card" id="screenStart" aria-labelledby="startTitle">
-      <h1 id="startTitle" class="title">2026 한 해, 너의 학습운은?</h1>
-      <p class="desc">
-        간단한 질문 10개로 2026년 학습 흐름(집중·계획·멘탈·컨디션)을 분석해서
-        <b>학습운 카드</b>로 뽑아줌. 과학적 근거는… 부스 감성 정도로만.
-      </p>
-
-      <div class="hero">
-        <img src="./assets/banner.png" alt="2026 학습운 배너 이미지" onerror="this.style.display='none'">
+    <section class="card" id="start">
+      <div class="header">
+        <div class="pill">교육 동아리 부스</div>
+        <h1 class="h1">2026 한 해 학습운 테스트</h1>
+        <p class="sub">고1~고3 기준. 10문항. 결과는 4가지 타입으로 정리해줌.</p>
       </div>
 
-      <div class="grid2">
-        <label class="field">
-          <span>닉네임(결과 카드에 표시)</span>
-          <input id="inpName" maxlength="12" placeholder="예: 정하나" />
-        </label>
-
-        <label class="field">
-          <span>운세 모드</span>
-          <select id="selMode">
-            <option value="month">월별 운세(원하는 달 선택)</option>
-            <option value="random">랜덤 뽑기(부스용 추천)</option>
-          </select>
-        </label>
+      <div class="cover">
+        <img src="./assets/cover.jpg" alt="표지 이미지" onerror="this.style.display='none'">
       </div>
 
-      <div class="grid2" id="monthRow">
-        <label class="field">
-          <span>2026년 중 뽑을 달</span>
-          <select id="selMonth">
-            <option value="1">1월</option><option value="2">2월</option><option value="3">3월</option>
-            <option value="4">4월</option><option value="5">5월</option><option value="6">6월</option>
-            <option value="7">7월</option><option value="8">8월</option><option value="9">9월</option>
-            <option value="10">10월</option><option value="11">11월</option><option value="12">12월</option>
-          </select>
-        </label>
+      <label class="field">
+        <span>닉네임(결과 카드에 표시)</span>
+        <input id="name" maxlength="12" placeholder="예: 정하나" />
+      </label>
 
-        <label class="field">
-          <span>부스용 옵션</span>
-          <select id="selSpeed">
-            <option value="normal">일반(천천히 보기)</option>
-            <option value="fast">빠르게(대기 줄 길 때)</option>
-          </select>
-        </label>
-      </div>
+      <button class="btn primary" id="startBtn">테스트 시작하기</button>
 
-      <button class="btn primary" id="btnStart">테스트 시작</button>
-
-      <div class="tip">
-        <span class="badge">TIP</span>
-        사진 넣고 싶으면 <code>assets/banner.png</code>에 이미지 넣으면 됨.
-      </div>
+      <p class="fine">※ 재미용. 결과로 인생 결정 금지(인간들은 또 하겠지만).</p>
     </section>
 
     <!-- QUIZ -->
-    <section class="card hidden" id="screenQuiz" aria-live="polite">
-      <div class="quizTop">
-        <div>
-          <div class="kicker" id="kicker">질문</div>
-          <h2 class="qTitle" id="qTitle">문항</h2>
-        </div>
-        <div class="progressBox">
-          <div class="progressText" id="progressText">1/10</div>
+    <section class="card hidden" id="quiz" aria-live="polite">
+      <div class="topline">
+        <button class="btn ghost" id="backBtn" type="button">←</button>
+
+        <div class="progressWrap" aria-label="진행도">
+          <div class="progressText" id="progressText">1 / 10</div>
           <div class="progress">
-            <div class="bar" id="progressBar" style="width:0%"></div>
+            <div class="bar" id="bar"></div>
           </div>
         </div>
+
+        <button class="btn ghost" id="restartBtn" type="button">처음</button>
+      </div>
+
+      <div class="qbox">
+        <div class="qnum" id="qnum">Q1</div>
+        <h2 class="h2" id="question">질문</h2>
       </div>
 
       <div class="choices" id="choices"></div>
 
-      <div class="quizBottom">
-        <button class="btn" id="btnBack" type="button">이전</button>
-        <button class="btn ghost" id="btnRestartMid" type="button">처음으로</button>
-      </div>
+      <div class="hint">답을 누르면 자동으로 다음 문항으로 넘어감.</div>
     </section>
 
     <!-- RESULT -->
-    <section class="card hidden" id="screenResult" aria-labelledby="resultTitle">
-      <h2 id="resultTitle" class="title">결과: 2026 학습운 카드</h2>
+    <section class="card hidden" id="result">
+      <div class="header">
+        <div class="pill" id="resultPill">결과</div>
+        <h2 class="h1" id="resultTitle">타입</h2>
+        <p class="sub" id="resultDesc"></p>
+      </div>
 
-      <div class="resultCard" id="resultCard">
-        <div class="resultHeader">
-          <div class="resultAvatar" id="resultAvatar">✨</div>
-          <div>
-            <div class="resultName" id="resultName">OOO</div>
-            <div class="resultType" id="resultType">타입</div>
-          </div>
-        </div>
+      <div class="resultMedia">
+        <img id="resultImg" alt="결과 이미지" />
+      </div>
 
-        <div class="resultBody">
-          <div class="resultImgWrap">
-            <img id="resultImg" alt="결과 이미지" />
-          </div>
+      <div class="statGrid">
+        <div class="stat"><span>집중</span><div class="meter"><div id="mFocus"></div></div></div>
+        <div class="stat"><span>계획</span><div class="meter"><div id="mPlan"></div></div></div>
+        <div class="stat"><span>멘탈</span><div class="meter"><div id="mMind"></div></div></div>
+        <div class="stat"><span>컨디션</span><div class="meter"><div id="mBody"></div></div></div>
+      </div>
 
-          <p class="resultSummary" id="resultSummary"></p>
-
-          <div class="stats">
-            <div class="stat"><div class="label">집중</div><div class="meter"><div id="mFocus"></div></div></div>
-            <div class="stat"><div class="label">계획</div><div class="meter"><div id="mPlan"></div></div></div>
-            <div class="stat"><div class="label">멘탈</div><div class="meter"><div id="mMind"></div></div></div>
-            <div class="stat"><div class="label">컨디션</div><div class="meter"><div id="mBody"></div></div></div>
-          </div>
-
-          <div class="resultGrid">
-            <div class="mini">
-              <div class="miniTitle">잘 풀리는 학습 루트</div>
-              <div id="goodRoute"></div>
-            </div>
-            <div class="mini">
-              <div class="miniTitle">주의할 함정</div>
-              <div id="trap"></div>
-            </div>
-            <div class="mini">
-              <div class="miniTitle">오늘의 미션(부스용)</div>
-              <div id="mission"></div>
-            </div>
-            <div class="mini">
-              <div class="miniTitle">행운 키워드</div>
-              <div id="lucky"></div>
-            </div>
-          </div>
-
-          <div class="monthLine" id="monthLine"></div>
-        </div>
+      <div class="box">
+        <div class="boxTitle">2026 운영법</div>
+        <div class="boxText" id="tip"></div>
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="btnAgain">다시 하기</button>
-        <button class="btn" id="btnCopy">결과 복사</button>
-        <button class="btn ghost" id="btnPrint">인쇄/저장(PDF)</button>
+        <button class="btn primary" id="againBtn">다시 하기</button>
+        <button class="btn" id="copyBtn">결과 복사</button>
+        <button class="btn" id="printBtn">인쇄/저장</button>
       </div>
-
-      <p class="footnote">
-        ※ 부스 이벤트용 재미 콘텐츠. 결과로 인생 결정 금지. (인간들이 제일 못 지킴)
-      </p>
     </section>
   </main>
-
-  <!-- MODAL -->
-  <dialog id="dlgHow" class="dlg">
-    <h3>사용법</h3>
-    <ol>
-      <li>닉네임 입력</li>
-      <li>랜덤 or 월별 선택</li>
-      <li>질문 10개 체크</li>
-      <li>결과 카드 캡처/복사해서 공유</li>
-    </ol>
-    <div class="dlgBtns">
-      <button class="btn primary" id="btnCloseDlg">닫기</button>
-    </div>
-  </dialog>
 
   <script src="./script.js"></script>
 </body>
